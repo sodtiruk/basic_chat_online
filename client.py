@@ -1,6 +1,5 @@
 import socket
 import threading
-import gui
 
 def main():
     IPSERVER = "localhost"
@@ -9,7 +8,9 @@ def main():
     # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # client.connect((IPSERVER, PORT))
 
-    windowsgui = gui.Gui()
+         
+
+
 
     
 
