@@ -2,7 +2,11 @@ import socket
 import threading
 
 def handleClient(client: socket.socket, addr):
-    pass
+    while True:
+        message = client.recv(1024)
+        if message:
+            print(message) 
+
 
 def main():
 
