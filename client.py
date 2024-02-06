@@ -28,13 +28,22 @@ def main():
 
     #bind keyboard enter and send
     #when you press enter from your keyboard you will be able to send the message
-    gui.bind("<Return>", sendMessageToServer)
-
+    gui.bind("<Return>", lambda event: sendMessageToServer(textBoxTypeChat))
+    
 
     gui.mainloop()
+    # client.close()
     
-def sendMessageToServer(event):
-    print("hello world")
+def sendMessageToServer(text):
+    # client.sendall(b'Hello world')
+
+    #clear texttype to send message
+    message = str(text.get("1.0", END))
+    text.delete("1.0", END)
+    print(message.strip())
+
+    #send message to server
+    
 
 if __name__ == "__main__":
     main()
