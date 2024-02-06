@@ -28,12 +28,12 @@ def main():
 
     #bind keyboard enter and send
     #when you press enter from your keyboard you will be able to send the message
-    gui.bind("<Return>", functionprint)
+    gui.bind("<Return>", sendMessageToServer)
 
 
     gui.mainloop()
     
-def functionprint(event):
+def sendMessageToServer(event):
     print("hello world")
 
 if __name__ == "__main__":
