@@ -1,6 +1,8 @@
 import socket
 import threading
 
+CLIENT_LIST = [] 
+
 def handleClient(client: socket.socket, addr):
     while True:
         message = client.recv(1024)
@@ -27,6 +29,7 @@ def main():
         #start thread handle client 
         threading.Thread(target=handleClient, args=(client, addr), daemon=True).start()
 
+        CLIENT_LIST.append([client, addr])
 
 
 if __name__ == "__main__":
