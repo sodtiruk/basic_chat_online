@@ -49,7 +49,7 @@ def sendMessageToServer(textType, textRead):
     #send message to server
 
 
-def readMesasgeFromServer():
+def readMessageFromServer():
     pass
 
 
