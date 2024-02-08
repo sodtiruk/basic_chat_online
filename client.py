@@ -18,8 +18,7 @@ def main():
 
     textBoxReadChat = Text(gui, height=20, width=80, font=("Helvetica", 20))
     textBoxTypeChat = Text(gui, height=10, width=20, font=("Helvetica", 32))    
-    buttonSendChat = Button(gui, text="Send", command=None, width=40, height=40)
-
+    buttonSendChat = Button(gui, text="Send", command=None,width=40, height=40)
 
     #position widget
     textBoxReadChat.pack()
@@ -28,22 +27,31 @@ def main():
 
     #bind keyboard enter and send
     #when you press enter from your keyboard you will be able to send the message
-    gui.bind("<Return>", lambda event: sendMessageToServer(textBoxTypeChat))
+    gui.bind("<Return>", lambda event: sendMessageToServer(textBoxTypeChat, textBoxReadChat))
     
 
     gui.mainloop()
     # client.close()
     
-def sendMessageToServer(text):
+def sendMessageToServer(textType, textRead):
     # client.sendall(b'Hello world')
 
     #clear texttype to send message
-    message = str(text.get("1.0", END))
-    text.delete("1.0", END)
-    print(message.strip())
+    message = str(textType.get("1.0", END))
+    textType.delete("1.0", END)
+    #delte space text
+    clearMessage = message.strip()
+    print(clearMessage)
+
+    #message you on textbox
+    textRead.insert(END, f"{clearMessage}\n")
 
     #send message to server
-    
+
+
+def readMesasgeFromServer():
+    pass
+
 
 if __name__ == "__main__":
     main()
