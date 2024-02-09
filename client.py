@@ -18,7 +18,7 @@ def main():
 
     textBoxReadChat = Text(gui, height=20, width=80, font=("Helvetica", 20))
     textBoxTypeChat = Text(gui, height=10, width=20, font=("Helvetica", 32))    
-    buttonSendChat = Button(gui, text="Send", command=None,width=40, height=40)
+    buttonSendChat = Button(gui, text="Send", command=lambda: sendMessageToServer(textBoxTypeChat, textBoxReadChat),width=40, height=40)
 
     #position widget
     textBoxReadChat.pack()
@@ -44,7 +44,7 @@ def sendMessageToServer(textType, textRead):
     print(clearMessage)
 
     #message you on textbox
-    textRead.insert(END, f"{clearMessage}\n")
+    textRead.insert(END, f"> {clearMessage}\n")
 
     #send message to server
 
