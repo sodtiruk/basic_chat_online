@@ -8,17 +8,17 @@ def main():
     PORT = 3333
 
     #connect server
-    # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # client.connect((IPSERVER, PORT))
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect((IPSERVER, PORT))
 
     gui = Tk()    
     gui.title("Chat Online Basic") #set name title
     gui.geometry("600x700") 
-    # gui.resizable(False, False)
+    gui.resizable(False, False)
 
     textBoxReadChat = Text(gui, height=20, width=80, font=("Helvetica", 20))
     textBoxTypeChat = Text(gui, height=10, width=20, font=("Helvetica", 32))    
-    buttonSendChat = Button(gui, text="Send", command=lambda: sendMessageToServer(textBoxTypeChat, textBoxReadChat),width=40, height=40)
+    buttonSendChat = Button(gui, text="Send", command=lambda: sendMessageToServer(textBoxTypeChat, textBoxReadChat, client),width=40, height=40)
 
     #position widget
     textBoxReadChat.pack()
@@ -27,13 +27,13 @@ def main():
 
     #bind keyboard enter and send
     #when you press enter from your keyboard you will be able to send the message
-    gui.bind("<Return>", lambda event: sendMessageToServer(textBoxTypeChat, textBoxReadChat))
-    
+    gui.bind("<Return>", lambda event: sendMessageToServer(textBoxTypeChat, textBoxReadChat, client))
+    threading.Thread(target=readMessageFromServer, args=(client, textBoxReadChat), daemon=True).start()   
 
     gui.mainloop()
-    # client.close()
+    client.close()
     
-def sendMessageToServer(textType, textRead):
+def sendMessageToServer(textType, textRead, client:socket.socket):
     # client.sendall(b'Hello world')
 
     #clear texttype to send message
@@ -47,10 +47,17 @@ def sendMessageToServer(textType, textRead):
     textRead.insert(END, f"> {clearMessage}\n")
 
     #send message to server
+    client.sendall(clearMessage.encode("utf-8"))
 
 
-def readMessageFromServer():
-    pass
+def readMessageFromServer(client: socket.socket, textRead):
+    while True:
+        message = client.recv(1024)   
+        if message:
+            decrypMessage = message.decode("utf-8")
+            print(decrypMessage)
+
+            textRead.insert(END, f"{decrypMessage}\n")
 
 
 if __name__ == "__main__":
