@@ -7,8 +7,14 @@ def handleClient(client: socket.socket, addr):
     while True:
         message = client.recv(1024)
         if message:
-            print(message) 
+            decryptMessage = message.decode("utf-8")
+            # print(decryptMessage)
 
+            for c in CLIENT_LIST:
+                if c[0] != client: #check cliend not yourself what if yes, dont send message yourself.
+                    clientEachPerson = c[0]
+                    messageSend = (str(addr) +"> "+ decryptMessage).encode("utf-8")
+                    clientEachPerson.sendall(messageSend)
 
 def main():
 
