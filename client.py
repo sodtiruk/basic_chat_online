@@ -59,7 +59,6 @@ def readMessageFromServer(client: socket.socket, textRead):
 
             textRead.insert(END, f"{decrypMessage}\n")
 
-
 if __name__ == "__main__":
     main()
 
